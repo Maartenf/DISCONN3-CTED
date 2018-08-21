@@ -45,7 +45,7 @@ var Map = {
 	},
 
 	isWalkable: function(x, y) {
-		var tile = this.geTileNumber(x, y);
+		var tile = this.getTileNumber(x, y);
 		return tile == 0 ? true : false;
 	}
 	
