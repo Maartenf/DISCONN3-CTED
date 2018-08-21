@@ -4,6 +4,10 @@ window.onload = function() {
 
 	keys = [];
 
+	mouseClicked = false;
+	mouseX = 0;
+	mouseY = 0;
+
 	GameEngine.init();
 }
 
@@ -14,4 +18,11 @@ window.onkeydown = function(e) {
 window.onkeyup = function(e) {
 	keys[e.keyCode] = false;
 	e.preventDefault();
+};
+
+canvas.onclick = function(e) {
+	mouseClicked = true;
+
+	mouseX = e.offsetX;
+	mouseY = e.offsetY;
 };
