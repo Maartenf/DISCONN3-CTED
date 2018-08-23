@@ -1,22 +1,35 @@
-function Bullet(x, y, rotation) {
+function Bullet(x, y, angle) {
 
-	this.size = 2;
+	this.angle = angle;
+
+	this.size = 3;
 	this.color = "white";
 
-	Entity.call(this, x, y, this.size, this.size, rotation, this.color);
+	Entity.call(this, x, y, this.size, this.size, this.color);
 
-	this.speed = 5;
+	this.speed = 3;
+	this.acceleration = -0.0005;
 
 }
 
 Bullet.prototype = Object.create(Entity.prototype);
 
 Bullet.prototype.update = function() {
-	this.x += this.speed * Math.cos(this.rotation);
-	this.y -= this.speed * Math.sin(this.rotation);
+	this.speed += this.acceleration;
 
-	if (!Map.isWalkable(this.x, this.y)) {
-		Map.changeTile(this.x, this.y, 0);
+	var xChange = this.speed * Math.cos(this.angle);
+	var yChange = this.speed * Math.sin(this.angle);
+
+	var newX = this.x + xChange;
+	var newY = this.y + yChange;
+
+	if (!Map.isWalkable(newX, newY)) {
+		if (Map.isShootable(newX, newY)) Map.changeTile(newX, newY, 0);
+		
 		this.alive = false;
+		return;
 	}
+
+	this.x += xChange;
+	this.y -= yChange;
 };
