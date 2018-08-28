@@ -2,6 +2,8 @@ function Enemy(x, y) {
 
 	Entity.call(this, x, y, 10, 10, "red");
 
+	this.name = "Enemy";
+
 	this.speed = 2;
 
 	this.xSpeed = this.speed;
@@ -15,7 +17,9 @@ function Enemy(x, y) {
 Enemy.prototype = Object.create(Entity.prototype);
 
 Enemy.prototype.update = function() {
-	this.timer++;
+	console.log("jjj");
+
+	/*this.timer++;
 
 	//change movement
 	if (this.timer >= this.nextMove) {
@@ -53,10 +57,10 @@ Enemy.prototype.update = function() {
 	}
 
 	this.x += this.xSpeed;
-	this.y += this.ySpeed;
+	this.y += this.ySpeed;*/
 };
 
-Enemy.prototype.changeMove = function() {
+/*Enemy.prototype.changeMove = function() {
 	var rnd = Math.round(Math.random() * 3);
 	var xd = 0;
 	var yd = 0;
@@ -78,4 +82,4 @@ Enemy.prototype.changeMove = function() {
 
 	this.xSpeed *= this.speed * xd;
 	this.ySpeed *= this.speed * yd;
-};
+};*/

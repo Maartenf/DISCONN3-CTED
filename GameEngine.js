@@ -22,6 +22,13 @@ var GameEngine = {
 		window.requestAnimationFrame(this.loop.bind(this));
 	},
 
+	getPlayer: function() {
+		return "kju";
+		/*for (var e in this.entities) {
+			if (e.name == "Player") return e;
+		}*/
+	},
+
 	init: function() {
 		var p = new Player(500, 100);
 		this.entities.push(p);

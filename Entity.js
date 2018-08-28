@@ -11,6 +11,10 @@ function Entity(x, y, width, height, color) {
 
 	//delete entity when false
 	this.alive = true;
+
+	this.name = "Entity";
+
+	console.log(Function.name);
 	
 }
 

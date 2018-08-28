@@ -2,6 +2,8 @@ function Player(x, y) {
 
 	Entity.call(this, x, y, 10, 10, "white");
 
+	this.name = "Player";
+
 	this.speed = 2;
 
 	this.bullets = 100;
@@ -34,7 +36,7 @@ Player.prototype.update = function() {
 	//key d
 	if (keys[68]) {
 		if (Map.isWalkable(this.x + this.width / 2 + this.speed, yCheck)) this.x += this.speed;
-		else this.x += Map.tilesize - this.x % Map.tilesize - this.width / 2 - 1;
+		else this.x += Map.tilesize - this.x % Map.tilesize - this.width / 2 - 1s;
 	}
 
 	//left mouse click
