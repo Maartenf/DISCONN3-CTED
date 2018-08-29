@@ -11,10 +11,10 @@ function Enemy(x, y) {
 
 	this.maxVisibleDistance = 300;
 
-	this.speed = 2;
+	this.speed = 0.5;
 
-	this.xSpeed = this.speed;
-	this.ySpeed = this.speed;
+	this.xD = 0;
+	this.yD = 0;
 
 	this.moveTimer = 0;
 	this.ticksToMove = 0;
@@ -53,18 +53,20 @@ Enemy.prototype.update = function() {
 		this.betweenShotTimer = 0;
 	}
 
+	//bullet collision
 	if (this.bulletCollision()) this.alive = false;
 
-	/*this.timer++;
+	//walking
+	this.moveTimer++;
 
 	//change movement
-	if (this.timer >= this.nextMove) {
+	if (this.moveTimer >= this.ticksToMove) {
 		//reset timer
-		this.timer = 0;
+		this.moveTimer = 0;
 
 		this.changeMove();
 
-		this.nextMove = Math.round(Math.random() * 100 + 10);
+		this.ticksToMove = Math.round(Math.random() * 500 + 200);
 	}
 
 	//colision detection
@@ -72,28 +74,36 @@ Enemy.prototype.update = function() {
 	var yCheck = [this.y - this.height / 2, this.y + this.height / 2];
 
 	//down
-	if (this.ySpeed > 0) {
-		if (Map.isWalkable(xCheck, this.y + this.height / 2 + this.speed)) this.y += this.speed;
-		else this.y += Map.tilesize - this.y % Map.tilesize - this.height / 2 - 1;
+	if (this.speed * this.yD > 0) {
+		if (!Map.isWalkable(xCheck, this.y + this.height / 2 + this.speed)) {
+			this.y += Map.tilesize - this.y % Map.tilesize - this.height / 2 - 1;
+			this.changeMove();
+		}
 	}
 	//up
-	if (this.yspeed < 0) {
-		if (Map.isWalkable(xCheck, this.y - this.height / 2 - this.speed)) this.y -= this.speed;
-		else this.y -= this.y % Map.tilesize - this.height / 2;
+	if (this.speed * this.yD < 0) {
+		if (!Map.isWalkable(xCheck, this.y - this.height / 2 - this.speed)) {
+			this.y -= this.y % Map.tilesize - this.height / 2;
+			this.changeMove();
+		}
 	}
 	//left
-	if (this.xSpeed < 0) {
-		if (Map.isWalkable(this.x - this.width / 2 - this.speed, yCheck)) this.x -= this.speed;
-		else this.x -= this.x % Map.tilesize - this.width / 2;
+	if (this.speed * this.xD < 0) {
+		if (!Map.isWalkable(this.x - this.width / 2 - this.speed, yCheck)) {
+			this.x -= this.x % Map.tilesize - this.width / 2;
+			this.changeMove();
+		}
 	}
 	//right
-	if (this.xSpeed > 0) {
-		if (Map.isWalkable(this.x + this.width / 2 + this.speed, yCheck)) this.x += this.speed;
-		else this.x += Map.tilesize - this.x % Map.tilesize - this.width / 2 - 1;
+	if (this.speed * this.xD > 0) {
+		if (!Map.isWalkable(this.x + this.width / 2 + this.speed, yCheck)) {
+			this.x += Map.tilesize - this.x % Map.tilesize - this.width / 2 - 1;
+			this.changeMove();
+		}
 	}
 
-	this.x += this.xSpeed;
-	this.y += this.ySpeed;*/
+	this.x += this.speed * this.xD;
+	this.y += this.speed * this.yD;
 };
 
 //check if there are visible walls between enemy and player
@@ -149,26 +159,34 @@ Enemy.prototype.bulletCollision = function() {
 	}
 };
 
-/*Enemy.prototype.changeMove = function() {
-	var rnd = Math.round(Math.random() * 3);
-	var xd = 0;
-	var yd = 0;
+Enemy.prototype.changeMove = function() {
+	var xd = this.xD;
+	var yd = this.yD;
 
-	switch (rnd) {
-		case 0:
-			yd = 1;
-		break;
-		case 1:
-			xd = 1;
-		break;
-		case 2:
-			yd = -1;
-		break;
-		case 3:
-			xd = -1;
-		break;
+	//make sure that the movement is different from last time
+	while (this.xD == xd && this.yD == yd) {
+		var rnd = Math.round(Math.random() * 3);
+
+		switch (rnd) {
+			case 0:
+				xd = 1;
+				yd = 0;
+			break;
+			case 1:
+				xd = -1;
+				yd = 0;
+			break;
+			case 2:
+				xd = 0;
+				yd = 1;
+			break;
+			case 3:
+				xd = 0;
+				yd = -1;
+			break;
+		}
 	}
 
-	this.xSpeed *= this.speed * xd;
-	this.ySpeed *= this.speed * yd;
-};*/
+	this.xD = xd;
+	this.yD = yd;
+};
