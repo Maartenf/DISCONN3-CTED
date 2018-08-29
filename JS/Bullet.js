@@ -9,13 +9,15 @@ function Bullet(x, y, angle, shooterName) {
 
 	this.size = 3;
 	this.color = "white";
+	this.opacity = 1;
+	this.fadePerTick = 0.01;
 
 	Entity.call(this, x, y, this.size, this.size, this.color);
 
 	this.name = "Bullet";
 
 	this.speed = 3;
-	this.acceleration = -0.0005;
+	this.acceleration = -0.015;
 
 	//name of entity
 	this.shooterName = shooterName;
@@ -46,4 +48,15 @@ Bullet.prototype.update = function() {
 	//if bullet goes further than travel distance
 	var distance = Math.sqrt(Math.pow(this.originX - this.x, 2) + Math.pow(this.originY - this.y, 2));
 	if (distance >= this.maxTravelDistance) this.alive = false;
+
+	this.opacity -= this.fadePerTick;
+};
+
+Bullet.prototype.draw = function() {
+	ctx.globalAlpha = this.opacity;
+	ctx.fillStyle = this.color;
+	ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
+
+	//reset opacity
+	ctx.globalAlpha = 1;
 };

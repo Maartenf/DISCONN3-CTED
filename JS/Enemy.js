@@ -66,7 +66,7 @@ Enemy.prototype.update = function() {
 
 		this.changeMove();
 
-		this.ticksToMove = Math.round(Math.random() * 500 + 200);
+		this.ticksToMove = Math.round(Math.random() * 700 + 500);
 	}
 
 	//colision detection

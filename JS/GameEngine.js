@@ -27,7 +27,8 @@ var GameEngine = {
 		this.entities.push(p);
 
 		var enemy1 = new Enemy(100, 100);
-		this.entities.push(enemy1);
+		var enemy2 = new Enemy(100, 500);
+		this.entities.push(enemy1, enemy2);
 
 		this.loop();
 	},
