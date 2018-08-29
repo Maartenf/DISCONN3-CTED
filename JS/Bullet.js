@@ -1,5 +1,10 @@
 function Bullet(x, y, angle) {
 
+	this.originX = x;
+	this.originY = y;
+
+	this.maxTravelDistance = 200;
+
 	this.angle = angle;
 
 	this.size = 3;
@@ -34,4 +39,8 @@ Bullet.prototype.update = function() {
 
 	this.x += xChange;
 	this.y -= yChange;
+
+	//if bullet goes further than travel distance
+	var distance = Math.sqrt(Math.pow(this.originX - this.x, 2) + Math.pow(this.originY - this.y, 2));
+	if (distance >= this.maxTravelDistance) this.alive = false;
 };

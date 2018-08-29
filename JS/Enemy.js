@@ -4,22 +4,54 @@ function Enemy(x, y) {
 
 	this.name = "Enemy";
 
+	this.shootTimer = 0;
+	this.ticksToShoot = 50;
+	this.betweenShotTimer = 0;
+	this.ticksBetweenShots = 20;
+
+	this.maxVisibleDistance = 300;
+
 	this.speed = 2;
 
 	this.xSpeed = this.speed;
 	this.ySpeed = this.speed;
 
-	this.timer = 0;
-	this.nextMove = 0;
-
-	this.test = true;
+	this.moveTimer = 0;
+	this.ticksToMove = 0;
 
 }
 
 Enemy.prototype = Object.create(Entity.prototype);
 
 Enemy.prototype.update = function() {
-	console.log(this.isPlayerVisible());
+	if (this.isPlayerVisible()) {
+		this.shootTimer++;
+		this.betweenShotTimer++;
+
+		var player = GameEngine.getPlayer();
+		//don't shoot if player too far away from enemy
+		var distance = Math.sqrt(Math.pow(player.x - this.x, 2) + Math.pow(player.y - this.y, 2));
+
+		if (this.shootTimer >= this.ticksToShoot && this.betweenShotTimer % this.ticksBetweenShots == 0 && distance <= this.maxVisibleDistance) {
+			//shoot bullet
+			var angle = 0;
+
+			var dx = player.x - this.x;
+			var dy = this.y - player.y;
+
+			if (dx >= 0 && dy >= 0) angle = Math.atan(Math.abs(dy / dx));
+			else if (dx <= 0 && dy >= 0) angle = Math.PI / 2 + Math.atan(Math.abs(dx / dy));
+			else if (dx <= 0 && dy <= 0) angle = Math.PI + Math.atan(Math.abs(dy / dx));
+			else if (dx >= 0 && dy <= 0) angle = Math.PI * (3 / 2) + Math.atan(Math.abs(dx / dy));
+
+			var b = new Bullet(this.x, this.y, angle);
+			GameEngine.entities.push(b);
+		}
+	} else {
+		//reset shoot and between shot timer
+		this.shootTimer = 0;
+		this.betweenShotTimer = 0;
+	}
 
 	/*this.timer++;
 
