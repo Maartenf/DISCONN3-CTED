@@ -1,4 +1,4 @@
-function Bullet(x, y, angle) {
+function Bullet(x, y, angle, shooterName) {
 
 	this.originX = x;
 	this.originY = y;
@@ -16,6 +16,9 @@ function Bullet(x, y, angle) {
 
 	this.speed = 3;
 	this.acceleration = -0.0005;
+
+	//name of entity
+	this.shooterName = shooterName;
 
 }
 

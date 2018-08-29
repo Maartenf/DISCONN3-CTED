@@ -44,7 +44,7 @@ Enemy.prototype.update = function() {
 			else if (dx <= 0 && dy <= 0) angle = Math.PI + Math.atan(Math.abs(dy / dx));
 			else if (dx >= 0 && dy <= 0) angle = Math.PI * (3 / 2) + Math.atan(Math.abs(dx / dy));
 
-			var b = new Bullet(this.x, this.y, angle);
+			var b = new Bullet(this.x, this.y, angle, this.name);
 			GameEngine.entities.push(b);
 		}
 	} else {
@@ -52,6 +52,8 @@ Enemy.prototype.update = function() {
 		this.shootTimer = 0;
 		this.betweenShotTimer = 0;
 	}
+
+	if (this.bulletCollision()) this.alive = false;
 
 	/*this.timer++;
 
@@ -133,6 +135,18 @@ Enemy.prototype.isPlayerVisible = function() {
 	}
 
 	return true;
+};
+
+Enemy.prototype.bulletCollision = function() {
+	for (var i = 0; i < GameEngine.entities.length; i++) {
+		var e = GameEngine.entities[i];
+
+		if (e.name !== "Bullet" || e.shooterName == "Enemy") continue;
+
+		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
+		if (distance <= 5) return true;
+		else return false;
+	}
 };
 
 /*Enemy.prototype.changeMove = function() {

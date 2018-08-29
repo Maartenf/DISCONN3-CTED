@@ -52,7 +52,7 @@ Player.prototype.update = function() {
 		else if (dx >= 0 && dy <= 0) angle = Math.PI * (3 / 2) + Math.atan(Math.abs(dx / dy));
 
 		if (this.bullets > 0) {
-			var b = new Bullet(this.x, this.y, angle);
+			var b = new Bullet(this.x, this.y, angle, this.name);
 			GameEngine.entities.push(b);
 
 			this.bullets--;
