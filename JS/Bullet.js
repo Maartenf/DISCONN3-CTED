@@ -7,6 +7,8 @@ function Bullet(x, y, angle) {
 
 	Entity.call(this, x, y, this.size, this.size, this.color);
 
+	this.name = "Bullet";
+
 	this.speed = 3;
 	this.acceleration = -0.0005;
 

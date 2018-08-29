@@ -1,5 +1,7 @@
 function Entity(x, y, width, height, color) {
 
+	this.name = "Entity";
+
 	//center coordinates
 	this.x = x;
 	this.y = y;

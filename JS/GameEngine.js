@@ -30,6 +30,13 @@ var GameEngine = {
 		this.entities.push(enemy1);
 
 		this.loop();
+	},
+
+	getPlayer: function() {
+		for (var i = 0; i < this.entities.length; i++) {
+			var entity = this.entities[i];
+			if (entity.name == "Player") return entity;
+		}
 	}
 
 };

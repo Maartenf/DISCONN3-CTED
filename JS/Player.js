@@ -2,6 +2,8 @@ function Player(x, y) {
 
 	Entity.call(this, x, y, 10, 10, "white");
 
+	this.name = "Player";
+
 	this.speed = 2;
 
 	this.bullets = 100;
