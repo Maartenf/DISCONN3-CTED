@@ -9,7 +9,8 @@ function Enemy(x, y) {
 	this.betweenShotTimer = 0;
 	this.ticksBetweenShots = 20;
 
-	this.maxVisibleDistance = 300;
+	this.maxVisibleDistance = 400;
+	this.shootDistance = 200;
 
 	this.speed = 0.5;
 
@@ -32,7 +33,10 @@ Enemy.prototype.update = function() {
 		//don't shoot if player too far away from enemy
 		var distance = Math.sqrt(Math.pow(player.x - this.x, 2) + Math.pow(player.y - this.y, 2));
 
-		if (this.shootTimer >= this.ticksToShoot && this.betweenShotTimer % this.ticksBetweenShots == 0 && distance <= this.maxVisibleDistance) {
+		//move towards player
+		if (distance <= this.maxVisibleDistance) this.moveToPlayer();
+
+		if (this.shootTimer >= this.ticksToShoot && this.betweenShotTimer % this.ticksBetweenShots == 0 && distance <= this.shootDistance) {
 			//shoot bullet
 			var angle = 0;
 
@@ -154,7 +158,7 @@ Enemy.prototype.bulletCollision = function() {
 		if (e.name !== "Bullet" || e.shooterName == "Enemy") continue;
 
 		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
-		if (distance <= 5) return true;
+		if (distance <= 8) return true;
 		else return false;
 	}
 };
@@ -165,28 +169,72 @@ Enemy.prototype.changeMove = function() {
 
 	//make sure that the movement is different from last time
 	while (this.xD == xd && this.yD == yd) {
-		var rnd = Math.round(Math.random() * 3);
-
-		switch (rnd) {
-			case 0:
-				xd = 1;
-				yd = 0;
-			break;
-			case 1:
-				xd = -1;
-				yd = 0;
-			break;
-			case 2:
-				xd = 0;
-				yd = 1;
-			break;
-			case 3:
-				xd = 0;
-				yd = -1;
-			break;
-		}
+		xd = Math.random() * 2 - 1;
+		yd = Math.random() * 2 - 1;
 	}
 
 	this.xD = xd;
 	this.yD = yd;
+};
+
+Enemy.prototype.moveToPlayer = function() {
+	//search for player in list of entities
+	var player = GameEngine.getPlayer();
+
+	//player coordinates
+	var pX = player.x;
+	var pY = player.y;
+
+	var directions = {
+		d1: {
+			xd: 0,
+			yd: -1
+		},
+		d2: {
+			xd: 1,
+			yd: -1
+		},
+		d3: {
+			xd: 1,
+			yd: 0
+		},
+		d4: {
+			xd: 1,
+			yd: 1
+		},
+		d5: {
+			xd: 0,
+			yd: 1
+		},
+		d6: {
+			xd: -1,
+			yd: 1
+		},
+		d7: {
+			xd: -1,
+			yd: 0
+		},
+		d8: {
+			xd: -1,
+			yd: -1
+		}
+	};
+
+
+	var minDis = width;
+
+	for (var dir in directions) {
+		var xd = directions[dir].xd;
+		var yd = directions[dir].yd;
+
+		var distance = Math.sqrt(Math.pow(this.x - (pX - xd), 2) + Math.pow(this.y - (pY - yd), 2));
+		if (distance < minDis) {
+			minDis = distance;
+
+			this.xD = xd;
+			this.yD = yd;
+		}
+	}
+
+	this.moveTimer = 0;
 };
