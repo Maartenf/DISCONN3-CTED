@@ -29,25 +29,25 @@ var Map = {
   			walk: true,
   			shoot: false,
   			transp: true,
-  			color: "#666"
+  			color: "#092433"
   		},
   		1: {
   			walk: false,
   			shoot: true,
   			transp: false,
-  			color: "black"
+  			color: "#2db370"
   		},
   		2: {
 			walk: false,
   			shoot: false,
   			transp: false,
-  			color: "#333"
+  			color: "#020c12"
   		},
   		3: {
 			walk: false,
   			shoot: true,
   			transp: true,
-  			color: "#777"
+  			color: "#44809c"
   		}
   	},
 	tilesize: 25,

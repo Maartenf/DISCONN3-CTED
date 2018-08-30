@@ -1,13 +1,18 @@
 function Player(x, y) {
 
-	Entity.call(this, x, y, 10, 10, "white");
+	Entity.call(this, x, y, 10, 10, "blue");
 
 	this.name = "Player";
 
+	this.health = 100;
+
 	this.speed = 2;
 
-	this.bullets = 100;
-	this.blocks = 20;
+	this.bullets = 20;
+	this.blocks = 6;
+
+	this.reloadTimer = 0;
+	this.ticksToReload = 50;
 
 }
 
@@ -51,15 +56,21 @@ Player.prototype.update = function() {
 		else if (dx <= 0 && dy <= 0) angle = Math.PI + Math.atan(Math.abs(dy / dx));
 		else if (dx >= 0 && dy <= 0) angle = Math.PI * (3 / 2) + Math.atan(Math.abs(dx / dy));
 
-		if (this.bullets > 0) {
-			var b = new Bullet(this.x, this.y, angle, this.name);
-			GameEngine.entities.push(b);
+		if (this.reloadTimer >= this.ticksToReload) {
+			if (this.bullets > 0) {
+				var b = new Bullet(this.x, this.y, angle, this.name);
+				GameEngine.entities.push(b);
 
-			this.bullets--;
-		} else {
-			console.log("Out of bullets!");
+				this.bullets--;
+			} else {
+				console.log("Out of bullets!");
+			}
+
+			this.reloadTimer = 0;
 		}
 	}
+
+	this.reloadTimer++;
 
 	//right mouse click
 	if (mouseRight) {
@@ -69,12 +80,32 @@ Player.prototype.update = function() {
 
 			//distance between click and player
 			var distance = Math.sqrt(Math.pow(cx - mouseX, 2) + Math.pow(cy - mouseY, 2));
-			if (distance > Map.tilesize && distance < Map.tilesize * 3) {
+			if (distance >= Map.tilesize && distance < Map.tilesize * 4) {
 				Map.changeTile(mouseX, mouseY, 1);
 				this.blocks--;
 			}
 		} else {
 			console.log("Out of blocks!");
+		}
+	}
+
+	//item pickup
+	this.itemCollision();
+};
+
+Player.prototype.itemCollision = function() {
+	for (var i = 0; i < GameEngine.entities.length; i++) {
+		var e = GameEngine.entities[i];
+
+		if (e.name !== "Item") continue;
+
+		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
+		if (distance <= 10) {
+			e.alive = false;
+
+			this.health += e.plusHealth;
+			this.bullets += e.plusBullets;
+			this.blocks += e.plusBlocks;
 		}
 	}
 };

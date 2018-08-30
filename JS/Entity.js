@@ -16,6 +16,7 @@ function Entity(x, y, width, height, color) {
 	
 }
 
+//override
 Entity.prototype.update = function() {};
 
 Entity.prototype.draw = function() {

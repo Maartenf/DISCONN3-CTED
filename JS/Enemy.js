@@ -1,8 +1,22 @@
-function Enemy(x, y) {
+function Enemy(x, y, type) {
 
-	Entity.call(this, x, y, 10, 10, "red");
+	this.types = {
+		Trooper: {
+			walk: true,
+			color: "red",
+			health: 2
+		},
+		Centry: {
+			walk: false,
+			color: "red",
+			health: 5
+		}
+	};
+
+	Entity.call(this, x, y, 10, 10, this.types[type].color);
 
 	this.name = "Enemy";
+	this.type = type;
 
 	this.shootTimer = 0;
 	this.ticksToShoot = 50;
@@ -11,6 +25,8 @@ function Enemy(x, y) {
 
 	this.maxVisibleDistance = 400;
 	this.shootDistance = 200;
+
+	this.health = this.types[type].health;
 
 	this.speed = 0.5;
 
@@ -58,7 +74,10 @@ Enemy.prototype.update = function() {
 	}
 
 	//bullet collision
-	if (this.bulletCollision()) this.alive = false;
+	if (this.bulletCollision()) {
+		this.health--;
+		if (this.health <= 0) this.alive = false;
+	}
 
 	//walking
 	this.moveTimer++;
@@ -106,8 +125,10 @@ Enemy.prototype.update = function() {
 		}
 	}
 
-	this.x += this.speed * this.xD;
-	this.y += this.speed * this.yD;
+	if (this.types[this.type].walk) {
+		this.x += this.speed * this.xD;
+		this.y += this.speed * this.yD;
+	}
 };
 
 //check if there are visible walls between enemy and player
@@ -158,7 +179,10 @@ Enemy.prototype.bulletCollision = function() {
 		if (e.name !== "Bullet" || e.shooterName == "Enemy") continue;
 
 		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
-		if (distance <= 8) return true;
+		if (distance <= 8) {
+			e.alive = false;
+			return true;
+		}
 		else return false;
 	}
 };

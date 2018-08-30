@@ -8,7 +8,7 @@ function Bullet(x, y, angle, shooterName) {
 	this.angle = angle;
 
 	this.size = 3;
-	this.color = "white";
+	this.color = "#e6d520";
 	this.opacity = 1;
 	this.fadePerTick = 0.01;
 

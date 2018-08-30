@@ -19,6 +19,8 @@ var GameEngine = {
 		mouseLeft = false;
 		mouseRight = false;
 
+		GUI.update();
+
 		window.requestAnimationFrame(this.loop.bind(this));
 	},
 
@@ -26,9 +28,13 @@ var GameEngine = {
 		var p = new Player(500, 100);
 		this.entities.push(p);
 
-		var enemy1 = new Enemy(100, 100);
-		var enemy2 = new Enemy(100, 500);
-		this.entities.push(enemy1, enemy2);
+		var enemy1 = new Enemy(100, 100, "Centry");
+		var enemy2 = new Enemy(100, 500, "Trooper");
+
+		var item1 = new Item(500, 200, "Ammo");
+		var item2 = new Item(500, 400, "Blocks");
+
+		this.entities.push(enemy1, enemy2, item1, item2);
 
 		this.loop();
 	},
