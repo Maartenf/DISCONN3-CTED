@@ -10,6 +10,9 @@ function Player(x, y) {
 
 	this.bullets = 20;
 	this.blocks = 6;
+	this.carrying = [];
+	this.carryWeight = 0;
+	this.maxCarryWeight = 4;
 
 	this.reloadTimer = 0;
 	this.ticksToReload = 50;
@@ -101,11 +104,17 @@ Player.prototype.itemCollision = function() {
 
 		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
 		if (distance <= 10) {
-			e.alive = false;
+			if (this.carryWeight + e.weight > this.maxCarryWeight) return;
+
+			this.carryWeight += e.weight;
 
 			this.health += e.plusHealth;
 			this.bullets += e.plusBullets;
 			this.blocks += e.plusBlocks;
+
+			if (e.carryable) this.carrying.push(e.type);
+
+			e.alive = false;
 		}
 	}
 };

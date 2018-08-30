@@ -33,8 +33,12 @@ var GameEngine = {
 
 		var item1 = new Item(500, 200, "Ammo");
 		var item2 = new Item(500, 400, "Blocks");
+		var item3 = new Item(500, 500, "Copper");
+		var item4 = new Item(500, 550, "Batteries");
 
-		this.entities.push(enemy1, enemy2, item1, item2);
+		this.entities.push(enemy1, enemy2, item1, item2, item3, item4);
+
+		GUI.init();
 
 		this.loop();
 	},

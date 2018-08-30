@@ -3,21 +3,21 @@ function Bullet(x, y, angle, shooterName) {
 	this.originX = x;
 	this.originY = y;
 
-	this.maxTravelDistance = 200;
+	this.maxTravelDistance = 300;
 
 	this.angle = angle;
 
 	this.size = 3;
 	this.color = "#e6d520";
 	this.opacity = 1;
-	this.fadePerTick = 0.01;
+	this.fadePerTick = 0.005;
 
 	Entity.call(this, x, y, this.size, this.size, this.color);
 
 	this.name = "Bullet";
 
 	this.speed = 3;
-	this.acceleration = -0.015;
+	this.acceleration = -0.005;
 
 	//name of entity
 	this.shooterName = shooterName;
