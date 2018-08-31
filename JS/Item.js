@@ -43,3 +43,8 @@ function Item(x, y, type) {
 }
 
 Item.prototype = Object.create(Entity.prototype);
+
+Item.prototype.update = function() {
+	//bullet collision
+	if (this.bulletCollision()) this.alive = false;
+}

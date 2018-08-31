@@ -6,13 +6,13 @@ function Player(x, y) {
 
 	this.health = 100;
 
-	this.speed = 2;
+	this.speed = 1.5;
 
 	this.bullets = 20;
 	this.blocks = 6;
 	this.carrying = null;
 	//reduce speed on pickup of item
-	this.slowdown = 0.5;
+	this.slowdown = 0.6;
 
 	this.reloadTimer = 0;
 	this.ticksToReload = 50;
@@ -45,6 +45,19 @@ Player.prototype.update = function() {
 	if (keys[68]) {
 		if (Map.isWalkable(this.x + this.width / 2 + this.speed, yCheck)) this.x += this.speed;
 		else this.x += Map.tilesize - this.x % Map.tilesize - this.width / 2 - 1;
+	}
+
+	//bullet collision
+	if (this.bulletCollision()) {
+		this.health -= 25;
+		this.carrying = null;
+
+		if (this.health <= 0) {
+			this.alive = false;
+
+			//pause game
+			GameEngine.pause = true;
+		}
 	}
 
 	//left mouse click
@@ -114,7 +127,7 @@ Player.prototype.itemCollision = function() {
 
 		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
 		if (distance <= 10) {
-			this.health += e.plusHealth;
+			if (this.health < 100) this.health += e.plusHealth;
 			this.bullets += e.plusBullets;
 			this.blocks += e.plusBlocks;
 

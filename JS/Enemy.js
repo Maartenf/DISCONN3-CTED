@@ -172,21 +172,6 @@ Enemy.prototype.isPlayerVisible = function() {
 	return true;
 };
 
-Enemy.prototype.bulletCollision = function() {
-	for (var i = 0; i < GameEngine.entities.length; i++) {
-		var e = GameEngine.entities[i];
-
-		if (e.name !== "Bullet" || e.shooterName == "Enemy") continue;
-
-		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
-		if (distance <= 8) {
-			e.alive = false;
-			return true;
-		}
-		else return false;
-	}
-};
-
 Enemy.prototype.changeMove = function() {
 	var xd = this.xD;
 	var yd = this.yD;

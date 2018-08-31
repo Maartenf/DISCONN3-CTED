@@ -2,6 +2,8 @@ var GameEngine = {
 
 	entities: [],
 
+	pause: false,
+
 	loop: function() {
 		Map.draw();
 
@@ -21,11 +23,11 @@ var GameEngine = {
 
 		GUI.update();
 
-		window.requestAnimationFrame(this.loop.bind(this));
+		if (!this.pause) window.requestAnimationFrame(this.loop.bind(this));
 	},
 
 	init: function() {
-		var p = new Player(500, 100);
+		var p = new Player(500, 400);
 		this.entities.push(p);
 
 		var enemy1 = new Enemy(100, 100, "Centry");
@@ -35,8 +37,9 @@ var GameEngine = {
 		var item2 = new Item(500, 400, "Blocks");
 		var item3 = new Item(500, 500, "Copper");
 		var item4 = new Item(500, 550, "Batteries");
+		var item5 = new Item(600, 550, "Health");
 
-		this.entities.push(enemy1, enemy2, item1, item2, item3, item4);
+		this.entities.push(enemy1, enemy2, item1, item2, item3, item4, item5);
 
 		GUI.init();
 
