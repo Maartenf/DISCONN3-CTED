@@ -45,7 +45,7 @@ Enemy.prototype.update = function() {
 		this.shootTimer++;
 		this.betweenShotTimer++;
 
-		var player = GameEngine.getPlayer();
+		var player = GameEngine.getEntity("Player");
 		//don't shoot if player too far away from enemy
 		var distance = Math.sqrt(Math.pow(player.x - this.x, 2) + Math.pow(player.y - this.y, 2));
 
@@ -134,7 +134,7 @@ Enemy.prototype.update = function() {
 //check if there are visible walls between enemy and player
 Enemy.prototype.isPlayerVisible = function() {
 	//search for player in list of entities
-	var player = GameEngine.getPlayer();
+	var player = GameEngine.getEntity("Player");
 
 	//player coordinates
 	var pX = player.x;
@@ -188,7 +188,7 @@ Enemy.prototype.changeMove = function() {
 
 Enemy.prototype.moveToPlayer = function() {
 	//search for player in list of entities
-	var player = GameEngine.getPlayer();
+	var player = GameEngine.getEntity("Player");
 
 	//player coordinates
 	var pX = player.x;

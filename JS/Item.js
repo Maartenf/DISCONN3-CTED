@@ -13,11 +13,6 @@ function Item(x, y, type) {
 			health: 10,
 			color: "red"
 		},
-		Copper: {
-			carry: true,
-			weight: 1,
-			color: "brown"
-		},
 		Batteries: {
 			carry: true,
 			weight: 1,

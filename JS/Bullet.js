@@ -10,13 +10,13 @@ function Bullet(x, y, angle, shooterName) {
 	this.size = 3;
 	this.color = "#e6d520";
 	this.opacity = 1;
-	this.fadePerTick = 0.005;
+	this.fadePerTick = 0.01;
 
 	Entity.call(this, x, y, this.size, this.size, this.color);
 
 	this.name = "Bullet";
 
-	this.speed = 3;
+	this.speed = 5;
 	this.acceleration = -0.005;
 
 	//name of entity

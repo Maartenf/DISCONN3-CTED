@@ -13,6 +13,8 @@ function Entity(x, y, width, height, color) {
 
 	//delete entity when false
 	this.alive = true;
+
+	this.bulletRadius = 8;
 	
 }
 
@@ -31,7 +33,7 @@ Entity.prototype.bulletCollision = function() {
 		if (e.name !== "Bullet" || e.shooterName == this.name) continue;
 
 		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
-		if (distance <= 8) {
+		if (distance <= this.bulletRadius) {
 			e.alive = false;
 			return true;
 		}
