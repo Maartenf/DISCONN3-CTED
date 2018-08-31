@@ -10,9 +10,9 @@ function Player(x, y) {
 
 	this.bullets = 20;
 	this.blocks = 6;
-	this.carrying = [];
-	this.carryWeight = 0;
-	this.maxCarryWeight = 4;
+	this.carrying = null;
+	//reduce speed on pickup of item
+	this.slowdown = 0.5;
 
 	this.reloadTimer = 0;
 	this.ticksToReload = 50;
@@ -93,7 +93,17 @@ Player.prototype.update = function() {
 	}
 
 	//item pickup
-	this.itemCollision();
+	if (this.carrying == null) this.itemCollision();
+
+	//item drop space
+	if (keys[32] && this.carrying !== null) {
+		//respawn item
+		var i = new Item(this.x, this.y + 15, this.carrying.type);
+		GameEngine.entities.push(i);
+
+		this.carrying = null;
+		this.speed /= this.slowdown;
+	}
 };
 
 Player.prototype.itemCollision = function() {
@@ -104,15 +114,15 @@ Player.prototype.itemCollision = function() {
 
 		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
 		if (distance <= 10) {
-			if (this.carryWeight + e.weight > this.maxCarryWeight) return;
-
-			this.carryWeight += e.weight;
-
 			this.health += e.plusHealth;
 			this.bullets += e.plusBullets;
 			this.blocks += e.plusBlocks;
 
-			if (e.carryable) this.carrying.push(e.type);
+			if (e.carryable) {
+				this.carrying = e;
+				//make player move slower
+				this.speed *= this.slowdown;
+			}
 
 			e.alive = false;
 		}

@@ -20,7 +20,7 @@ function Item(x, y, type) {
 		},
 		Batteries: {
 			carry: true,
-			weight: 2,
+			weight: 1,
 			color: "brown"
 		}
 	};
