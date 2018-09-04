@@ -10,9 +10,100 @@ var ImageLoader = {
 			height: 5,
 			scale: 4
 		},
+		Water: {
+			x: 15,
+			y: 10,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		Bridge: {
+			x: 20,
+			y: 10,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		Grass: {
+			x: 10,
+			y: 15,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		YellowFlower: {
+			x: 15,
+			y: 15,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		RedFlower: {
+			x: 20,
+			y: 15,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
 		Wall: {
 			x: 5,
 			y: 0,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		WallLeft: {
+			x: 0,
+			y: 20,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		WallTop: {
+			x: 5,
+			y: 20,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		WallRight: {
+			x: 10,
+			y: 20,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		WallBottom: {
+			x: 15,
+			y: 20,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		WallLeftTop: {
+			x: 0,
+			y: 25,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		WallRightTop: {
+			x: 5,
+			y: 25,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		WallRightBottom: {
+			x: 10,
+			y: 25,
+			width: 5,
+			height: 5,
+			scale: 4
+		},
+		WallLeftBottom: {
+			x: 15,
+			y: 25,
 			width: 5,
 			height: 5,
 			scale: 4

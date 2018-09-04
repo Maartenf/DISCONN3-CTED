@@ -7,14 +7,14 @@ function Bullet(x, y, angle, type, target) {
 		Normal: {
 			damage : 0.5,
 			dis: 300,
-			color: "white",
+			color: "red",
 			size: 3
 		},
 		Heavy: {
 			damage : 1,
 			dis: 200,
 			color: "red",
-			size: 5
+			size: 3
 		}
 	};
 
@@ -54,7 +54,7 @@ Bullet.prototype.update = function() {
 	var newX = this.x + this.xSpeed;
 	var newY = this.y + this.ySpeed;
 
-	if (!Map.isWalkable(newX, newY)) {
+	if (!Map.isWalkable(newX, newY) && Map.getTileNumber(newX, newY) != 15) {
 		if (Map.isShootable(newX, newY)) Map.changeTile(newX, newY, 0);
 		
 		this.alive = false;

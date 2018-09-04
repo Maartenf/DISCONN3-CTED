@@ -26,9 +26,9 @@ Entity.prototype.draw = function() {
 	//health bar
 	if (this.health !== undefined) {
 		ctx.fillStyle = "red";
-		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2 - 10, 30, 3);
+		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2 - 10, 30, 4);
 		ctx.fillStyle = "green";
-		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2 - 10, 30 * (this.health / this.maxHealth), 3);
+		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2 - 10, 30 * (this.health / this.maxHealth), 4);
 	}
 };
 
