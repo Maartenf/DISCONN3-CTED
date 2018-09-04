@@ -5,18 +5,18 @@ function Item(x, y, type) {
 			bullets: 5,
 			color: "#e6d520"
 		},
-		Blocks: {
-			blocks: 4,
-			color: "#2db370"
-		},
 		Health: {
-			health: 10,
+			health: 2,
 			color: "red"
 		},
 		Batteries: {
 			carry: true,
 			weight: 1,
 			color: "brown"
+		},
+		Trap: {
+			traps: 1,
+			color: "red"
 		}
 	};
 
@@ -31,7 +31,7 @@ function Item(x, y, type) {
 
 	this.plusHealth = t.health || 0;
 	this.plusBullets = t.bullets || 0;
-	this.plusBlocks = t.blocks || 0;
+	this.plusTraps = t.traps || 0;
 	this.carryable = t.carry || false;
 	this.weight = t.weight || 0;
 

@@ -1,26 +1,45 @@
-function Bullet(x, y, angle, shooterName) {
+function Bullet(x, y, angle, type, target) {
 
 	this.originX = x;
 	this.originY = y;
 
-	this.maxTravelDistance = 300;
+	this.types = {
+		Normal: {
+			damage : 0.5,
+			dis: 300
+		},
+		Heavy: {
+			damage : 1,
+			dis: 50
+		},
+		Nuke: {
+			damage: 10,
+			dis: 20
+		}
+	};
+
+	this.maxTravelDistance = this.types[type].dis;
+
+	this.damage = this.types[type].damage;
 
 	this.angle = angle;
 
 	this.size = 3;
 	this.color = "#e6d520";
 	this.opacity = 1;
-	this.fadePerTick = 0.01;
+	this.fadePerTick = 0.002;
 
 	Entity.call(this, x, y, this.size, this.size, this.color);
 
 	this.name = "Bullet";
 
-	this.speed = 5;
+	this.speed = 6;
+	this.xSpeed = 0;
+	this.ySpeed = 0;
 	this.acceleration = -0.005;
 
 	//name of entity
-	this.shooterName = shooterName;
+	this.target = target;
 
 }
 
@@ -29,11 +48,11 @@ Bullet.prototype = Object.create(Entity.prototype);
 Bullet.prototype.update = function() {
 	this.speed += this.acceleration;
 
-	var xChange = this.speed * Math.cos(this.angle);
-	var yChange = this.speed * Math.sin(this.angle);
+	this.xSpeed = this.speed * Math.cos(this.angle);
+	this.ySpeed = this.speed * Math.sin(this.angle);
 
-	var newX = this.x + xChange;
-	var newY = this.y + yChange;
+	var newX = this.x + this.xSpeed;
+	var newY = this.y + this.ySpeed;
 
 	if (!Map.isWalkable(newX, newY)) {
 		if (Map.isShootable(newX, newY)) Map.changeTile(newX, newY, 0);
@@ -42,8 +61,8 @@ Bullet.prototype.update = function() {
 		return;
 	}
 
-	this.x += xChange;
-	this.y -= yChange;
+	this.x += this.xSpeed;
+	this.y -= this.ySpeed;
 
 	//if bullet goes further than travel distance
 	var distance = Math.sqrt(Math.pow(this.originX - this.x, 2) + Math.pow(this.originY - this.y, 2));

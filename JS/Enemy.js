@@ -3,32 +3,71 @@ function Enemy(x, y, type) {
 	this.types = {
 		Trooper: {
 			walk: true,
+			walkToPlayer: true,
 			color: "red",
-			health: 2
+			speed: 0.6,
+			health: 2,
+			shootDistance: 300,
+			ticksToShoot: 0,
+			ticksBetweenShots: 50,
+			moveDistance: 100,
+			bullet: "Normal"
+		},
+		Zombie: {
+			walk: true,
+			walkToPlayer: false,
+			color: "red",
+			speed: 0.6,
+			health: 2,
+			shootDistance: 300,
+			ticksToShoot: 0,
+			ticksBetweenShots: 50,
+			moveDistance: 100,
+			bullet: "Nuke"
 		},
 		Centry: {
 			walk: false,
 			color: "red",
-			health: 5
+			health: 5,
+			shootDistance: 400,
+			ticksToShoot: 100,
+			ticksBetweenShots: 50,
+			bullet: "Normal"
+		},
+		Tank: {
+			walk: true,
+			walkToPlayer: true,
+			color: "red",
+			speed: 0.2,
+			health: 10,
+			shootDistance: 80,
+			ticksToShoot: 1,
+			ticksBetweenShots: 30,
+			moveDistance: 60,
+			bullet: "Heavy"
 		}
 	};
 
-	Entity.call(this, x, y, 10, 10, this.types[type].color);
-
-	this.name = "Enemy";
 	this.type = type;
 
+	var tObj = this.types[type];
+
+	Entity.call(this, x, y, 10, 10, tObj.color);
+
+	this.name = "Enemy";
+
 	this.shootTimer = 0;
-	this.ticksToShoot = 50;
+	this.ticksToShoot = tObj.ticksToShoot;
 	this.betweenShotTimer = 0;
-	this.ticksBetweenShots = 20;
+	this.ticksBetweenShots = tObj.ticksBetweenShots;
 
 	this.maxVisibleDistance = 400;
-	this.shootDistance = 200;
+	this.shootDistance = tObj.shootDistance;
 
-	this.health = this.types[type].health;
+	this.maxHealth = tObj.health;
+	this.health = this.maxHealth;
 
-	this.speed = 0.5;
+	this.speed = tObj.speed;
 
 	this.xD = 0;
 	this.yD = 0;
@@ -41,16 +80,20 @@ function Enemy(x, y, type) {
 Enemy.prototype = Object.create(Entity.prototype);
 
 Enemy.prototype.update = function() {
+	//bullet collision
+	this.bulletCollision();
+
+	var player = GameEngine.getEntity("Player");
+
 	if (this.isPlayerVisible()) {
 		this.shootTimer++;
 		this.betweenShotTimer++;
 
-		var player = GameEngine.getEntity("Player");
 		//don't shoot if player too far away from enemy
 		var distance = Math.sqrt(Math.pow(player.x - this.x, 2) + Math.pow(player.y - this.y, 2));
 
 		//move towards player
-		if (distance <= this.maxVisibleDistance) this.moveToPlayer();
+		if (distance <= this.maxVisibleDistance && this.types[this.type].walkToPlayer) this.moveToPlayer();
 
 		if (this.shootTimer >= this.ticksToShoot && this.betweenShotTimer % this.ticksBetweenShots == 0 && distance <= this.shootDistance) {
 			//shoot bullet
@@ -64,7 +107,7 @@ Enemy.prototype.update = function() {
 			else if (dx <= 0 && dy <= 0) angle = Math.PI + Math.atan(Math.abs(dy / dx));
 			else if (dx >= 0 && dy <= 0) angle = Math.PI * (3 / 2) + Math.atan(Math.abs(dx / dy));
 
-			var b = new Bullet(this.x, this.y, angle, this.name);
+			var b = new Bullet(this.x, this.y, angle, this.types[this.type].bullet, "Player");
 			GameEngine.entities.push(b);
 		}
 	} else {
@@ -73,11 +116,8 @@ Enemy.prototype.update = function() {
 		this.betweenShotTimer = 0;
 	}
 
-	//bullet collision
-	if (this.bulletCollision()) {
-		this.health--;
-		if (this.health <= 0) this.alive = false;
-	}
+	//stop if enemy can't walk
+	if (!this.types[this.type].walk) return;
 
 	//walking
 	this.moveTimer++;
@@ -90,6 +130,12 @@ Enemy.prototype.update = function() {
 		this.changeMove();
 
 		this.ticksToMove = Math.round(Math.random() * 700 + 500);
+	}
+
+	//check trap
+	if (Map.isTrap(this.x, this.y)) {
+		this.alive = false;
+		Map.changeTile(this.x, this.y, 0);
 	}
 
 	//colision detection
@@ -125,7 +171,8 @@ Enemy.prototype.update = function() {
 		}
 	}
 
-	if (this.types[this.type].walk) {
+	//don't move is enemy is too close
+	if (this.getDistance(player) >= this.types[this.type].moveDistance) {
 		this.x += this.speed * this.xD;
 		this.y += this.speed * this.yD;
 	}

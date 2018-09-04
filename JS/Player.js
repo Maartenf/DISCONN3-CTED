@@ -1,27 +1,32 @@
 function Player(x, y) {
 
-	Entity.call(this, x, y, 10, 10, "blue");
+	Entity.call(this, x, y, 20, 20, "blue");
 
 	this.name = "Player";
 
-	this.health = 100;
+	this.maxHealth = 4;
+	this.health = this.maxHealth;
+
+	this.traps = 3;
 
 	this.speed = 1.5;
 
 	this.bullets = 20;
-	this.blocks = 6;
 	this.carrying = null;
-	//reduce speed on pickup of item
-	this.slowdown = 0.6;
 
 	this.reloadTimer = 0;
-	this.ticksToReload = 50;
+	this.ticksToReload = 25;
+
+	this.bulletRadius = 16;
 
 }
 
 Player.prototype = Object.create(Entity.prototype);
 
 Player.prototype.update = function() {
+	//bullet collision
+	if (this.bulletCollision()) this.carrying = null;
+
 	var xCheck = [this.x - this.width / 2, this.x + this.width / 2];
 	var yCheck = [this.y - this.height / 2, this.y + this.height / 2];
 
@@ -47,19 +52,6 @@ Player.prototype.update = function() {
 		else this.x += Map.tilesize - this.x % Map.tilesize - this.width / 2 - 1;
 	}
 
-	//bullet collision
-	if (this.bulletCollision()) {
-		this.health -= 25;
-		this.carrying = null;
-
-		if (this.health <= 0) {
-			this.alive = false;
-
-			//pause game
-			GameEngine.pause = true;
-		}
-	}
-
 	//left mouse click
 	if (mouseLeft) {
 		var angle = 0;
@@ -74,7 +66,7 @@ Player.prototype.update = function() {
 
 		if (this.reloadTimer >= this.ticksToReload) {
 			if (this.bullets > 0) {
-				var b = new Bullet(this.x, this.y, angle, this.name);
+				var b = new Bullet(this.x, this.y, angle, "Normal", "Enemy");
 				GameEngine.entities.push(b);
 
 				this.bullets--;
@@ -86,24 +78,24 @@ Player.prototype.update = function() {
 		}
 	}
 
-	this.reloadTimer++;
-
 	//right mouse click
 	if (mouseRight) {
-		if (this.blocks > 0) {
+		if (this.traps > 0) {
 			var cx = this.x + this.width / 2;
 			var cy = this.y + this.height / 2;
 
 			//distance between click and player
 			var distance = Math.sqrt(Math.pow(cx - mouseX, 2) + Math.pow(cy - mouseY, 2));
 			if (distance >= Map.tilesize && distance < Map.tilesize * 4) {
-				Map.changeTile(mouseX, mouseY, 1);
-				this.blocks--;
+				Map.changeTile(mouseX, mouseY, 3);
+				this.traps--;
 			}
 		} else {
-			console.log("Out of blocks!");
+			console.log("Out of traps!");
 		}
 	}
+
+	this.reloadTimer++;
 
 	//item pickup
 	if (this.carrying == null) this.itemCollision();
@@ -115,7 +107,6 @@ Player.prototype.update = function() {
 		GameEngine.entities.push(i);
 
 		this.carrying = null;
-		this.speed /= this.slowdown;
 	}
 };
 
@@ -125,17 +116,13 @@ Player.prototype.itemCollision = function() {
 
 		if (e.name !== "Item") continue;
 
-		var distance = Math.sqrt(Math.pow(e.x - this.x, 2) + Math.pow(e.y - this.y, 2));
-		if (distance <= 10) {
-			if (this.health < 100) this.health += e.plusHealth;
+		if (this.isColliding(e)) {
+			if (this.health < this.maxHealth) this.health += e.plusHealth;
+			if (this.health > this.maxHealth) this.health = this.maxHealth;
 			this.bullets += e.plusBullets;
-			this.blocks += e.plusBlocks;
+			this.traps += e.plusTraps;
 
-			if (e.carryable) {
-				this.carrying = e;
-				//make player move slower
-				this.speed *= this.slowdown;
-			}
+			if (e.carryable) this.carrying = e;
 
 			e.alive = false;
 		}

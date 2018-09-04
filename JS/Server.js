@@ -9,8 +9,6 @@ function Server() {
 
 	this.name = "Server";
 
-	this.health = 100;
-
 	this.bulletRadius = this.size / 2;
 
 }
@@ -18,30 +16,14 @@ function Server() {
 Server.prototype = Object.create(Entity.prototype);
 
 Server.prototype.update = function() {
-	this.energy -= 2;
-	this.copper--;
+	this.energy--;
 
 	var p = GameEngine.getEntity("Player");
-	var distance = Math.sqrt(Math.pow(p.x - this.x, 2) + Math.pow(p.y - this.y, 2));
-	if (distance <= this.size / 1.2) {
+	if (this.isColliding(p)) {
 		var carry = p.carrying == null ? "" : p.carrying.type;
-
-		if (carry == "") return;
 
 		if (carry == "Batteries") this.energy += 5000;
 
 		p.carrying = null;
-	}
-
-	//bullet collision
-	if (this.bulletCollision()) {
-		this.health -= 5;
-
-		if (this.health <= 0) {
-			this.alive = false;
-
-			//pause game
-			GameEngine.pause = true;
-		}
 	}
 };
