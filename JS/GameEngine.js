@@ -29,12 +29,12 @@ var GameEngine = {
 	init: function() {
 		var server = new Server();
 
-		var player = new Player(500, 400);
+		var player = new Player(width / 2, height / 2);
 
 		var enemy1 = new Enemy(100, 100, "Centry");
 		var enemy2 = new Enemy(100, 500, "Tank");
-		var enemy3 = new Enemy(700, 450, "Trooper");
-		var enemy4 = new Enemy(700, 400, "Zombie");
+		var enemy3 = new Enemy(720, 500, "Trooper");
+		var enemy4 = new Enemy(700, 320, "Zombie");
 
 		var item1 = new Item(500, 200, "Ammo");
 		var item2 = new Item(500, 550, "Batteries");
@@ -45,7 +45,8 @@ var GameEngine = {
 
 		GUI.init();
 
-		this.loop();
+		//start when atlass is loaded
+		ImageLoader.init(this.loop.bind(this));
 	},
 
 	getEntity: function(name) {

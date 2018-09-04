@@ -3,20 +3,20 @@ function Item(x, y, type) {
 	this.types = {
 		Ammo: {
 			bullets: 5,
-			color: "#e6d520"
+			color: "Item"
 		},
 		Health: {
 			health: 2,
-			color: "red"
+			color: "Health"
 		},
 		Batteries: {
 			carry: true,
 			weight: 1,
-			color: "brown"
+			color: "Item"
 		},
 		Trap: {
 			traps: 1,
-			color: "red"
+			color: "Item"
 		}
 	};
 
@@ -43,3 +43,11 @@ Item.prototype.update = function() {
 	//bullet collision
 	if (this.bulletCollision()) this.alive = false;
 }
+
+Item.prototype.draw = function() {
+	ImageLoader.drawIMG(this.color, this.x - this.width / 2, this.y - this.height / 2);
+
+	ctx.fillStyle = "white";
+	ctx.font="8px Arial";
+	ctx.fillText(this.type.toUpperCase(), this.x + this.width / 2 + 10, this.y); 
+};

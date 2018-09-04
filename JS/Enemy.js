@@ -4,30 +4,30 @@ function Enemy(x, y, type) {
 		Trooper: {
 			walk: true,
 			walkToPlayer: true,
-			color: "red",
+			color: "Player",
 			speed: 0.6,
 			health: 2,
 			shootDistance: 300,
 			ticksToShoot: 0,
 			ticksBetweenShots: 50,
-			moveDistance: 100,
+			moveDistance: 30,
 			bullet: "Normal"
 		},
 		Zombie: {
 			walk: true,
 			walkToPlayer: false,
-			color: "red",
+			color: "Player",
 			speed: 0.6,
 			health: 2,
 			shootDistance: 300,
 			ticksToShoot: 0,
 			ticksBetweenShots: 50,
-			moveDistance: 100,
-			bullet: "Nuke"
+			moveDistance: 30,
+			bullet: "Heavy"
 		},
 		Centry: {
 			walk: false,
-			color: "red",
+			color: "Player",
 			health: 5,
 			shootDistance: 400,
 			ticksToShoot: 100,
@@ -37,7 +37,7 @@ function Enemy(x, y, type) {
 		Tank: {
 			walk: true,
 			walkToPlayer: true,
-			color: "red",
+			color: "Player",
 			speed: 0.2,
 			health: 10,
 			shootDistance: 80,
@@ -52,7 +52,7 @@ function Enemy(x, y, type) {
 
 	var tObj = this.types[type];
 
-	Entity.call(this, x, y, 10, 10, tObj.color);
+	Entity.call(this, x, y, 20, 20, tObj.color);
 
 	this.name = "Enemy";
 

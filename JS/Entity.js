@@ -15,21 +15,19 @@ function Entity(x, y, width, height, color) {
 	this.alive = true;
 
 	this.bulletRadius = 8;
-	
 }
 
 //override
 Entity.prototype.update = function() {};
 
 Entity.prototype.draw = function() {
-	ctx.fillStyle = this.color;
-	ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
+	ImageLoader.drawIMG(this.color, this.x - this.width / 2, this.y - this.height / 2);
 
 	//health bar
 	if (this.health !== undefined) {
 		ctx.fillStyle = "red";
 		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2 - 10, 30, 3);
-		ctx.fillStyle = "white";
+		ctx.fillStyle = "green";
 		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2 - 10, 30 * (this.health / this.maxHealth), 3);
 	}
 };

@@ -1,6 +1,6 @@
 function Player(x, y) {
 
-	Entity.call(this, x, y, 20, 20, "blue");
+	Entity.call(this, x, y, 20, 20, "Player");
 
 	this.name = "Player";
 
@@ -98,7 +98,7 @@ Player.prototype.update = function() {
 	this.reloadTimer++;
 
 	//item pickup
-	if (this.carrying == null) this.itemCollision();
+	this.itemCollision();
 
 	//item drop space
 	if (keys[32] && this.carrying !== null) {

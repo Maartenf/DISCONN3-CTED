@@ -17,12 +17,16 @@ window.onload = function() {
 }
 
 window.onkeydown = function(e) {
-	keys[e.keyCode] = true;
+	var key = e.keyCode || e.which
+	keys[key] = true;
+
 	e.preventDefault();
 };
 
 window.onkeyup = function(e) {
-	keys[e.keyCode] = false;
+	var key = e.keyCode || e.which
+	keys[key] = false;
+
 	e.preventDefault();
 };
 

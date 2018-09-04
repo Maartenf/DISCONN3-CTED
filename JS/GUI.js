@@ -13,7 +13,7 @@ var GUI = {
 	update: function() {
 		this.span.innerHTML = "Bullets=" + this.player.bullets + " | Carrying=" + 
 			(this.player.carrying == null ? "" : this.player.carrying.type) + " | Health=" + this.player.health + "/" + 
-			this.player.maxHealth + " | Energy=" + this.server.energy + "/100000";
+			this.player.maxHealth + " | Energy=" + this.server.energy;
 	}
 	
 };

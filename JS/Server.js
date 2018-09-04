@@ -1,9 +1,9 @@
 function Server() {
 
-	this.size = 30;
-	this.color = "cyan";
+	this.size = 50;
+	this.color = "Server";
 
-	this.energy = 100000;
+	this.energy = 0;
 
 	Entity.call(this, width / 2, height / 2, this.size, this.size, this.color);
 
@@ -16,8 +16,6 @@ function Server() {
 Server.prototype = Object.create(Entity.prototype);
 
 Server.prototype.update = function() {
-	this.energy--;
-
 	var p = GameEngine.getEntity("Player");
 	if (this.isColliding(p)) {
 		var carry = p.carrying == null ? "" : p.carrying.type;

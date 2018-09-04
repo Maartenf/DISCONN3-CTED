@@ -6,15 +6,15 @@ function Bullet(x, y, angle, type, target) {
 	this.types = {
 		Normal: {
 			damage : 0.5,
-			dis: 300
+			dis: 300,
+			color: "white",
+			size: 3
 		},
 		Heavy: {
 			damage : 1,
-			dis: 50
-		},
-		Nuke: {
-			damage: 10,
-			dis: 20
+			dis: 200,
+			color: "red",
+			size: 5
 		}
 	};
 
@@ -24,8 +24,8 @@ function Bullet(x, y, angle, type, target) {
 
 	this.angle = angle;
 
-	this.size = 3;
-	this.color = "#e6d520";
+	this.size = this.types[type].size;
+	this.color = this.types[type].color;
 	this.opacity = 1;
 	this.fadePerTick = 0.002;
 
