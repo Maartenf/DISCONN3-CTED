@@ -20,6 +20,9 @@ var GUI = {
 
 		this.player = GameEngine.getEntity("Player");
 		this.server = GameEngine.getEntity("Server");
+
+		document.getElementById("start").style.display = "block";
+		GameEngine.pause = true;
 	},
 
 	update: function() {
@@ -29,9 +32,29 @@ var GUI = {
 		this.sBullets.innerHTML = this.player.bullets;
 		this.sBatteries.innerHTML = this.server.energy;
 		//this.sCarry.innerHTML = this.player.carrying == null ? "&#x2611;" : "&#9745;";
-		this.sCarry.innerHTML = this.player.carrying == null ? "-" : "&#x2611;";
+		this.sCarry.innerHTML = this.player.carrying == null ? "&#x2716;" : "&#10004;";
+	},
+
+	gameOver: function() {
+		document.getElementById("gameOver").style.display = "block";
 	}
 	
+};
+
+document.getElementById("start").onclick = function() {
+	document.getElementById("start").style.display = "none";
+
+	GameEngine.pause = false;
+	GameEngine.loop();
+};
+
+document.getElementById("gameOver").onclick = function() {
+	document.getElementById("gameOver").style.display = "none";
+	
+	GameEngine.pause = false;
+	GameEngine.entities = [];
+
+	GameEngine.init();
 };
 
 document.getElementById("pause").onclick = function() {

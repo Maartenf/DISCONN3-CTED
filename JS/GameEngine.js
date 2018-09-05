@@ -37,11 +37,9 @@ var GameEngine = {
 		var enemy4 = new Enemy(650, 350, "Trooper");
 
 		var item1 = new Item(500, 200, "Ammo");
-		var item2 = new Item(500, 550, "Batteries");
-		var item3 = new Item(600, 550, "Health");
-		var item4 = new Item(600, 570, "Trap");
+		var item2 = new Item(600, 550, "Health");
 
-		this.entities.push(server, player, enemy1, enemy2, enemy3, enemy4, item1, item2, item3, item4);
+		this.entities.push(server, player, enemy1, enemy2, enemy3, enemy4, item1, item2);
 
 		GUI.init();
 

@@ -57,6 +57,14 @@ Entity.prototype.bulletCollision = function() {
 			if (this.health <= 0) {
 				this.health = 0;
 				this.alive = false;
+
+				var item = new Item(this.x, this.y, "Batteries");
+				GameEngine.entities.push(item);
+
+				if (this.name === "Player") {
+					GameEngine.pause = true;
+					GUI.gameOver();
+				}
 			}
 
 			return true;

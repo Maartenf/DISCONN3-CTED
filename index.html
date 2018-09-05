@@ -54,6 +54,19 @@
 				text-align: right;
 				line-height: 30px;
 			}
+			.info {
+				display: none;
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				background-color: black;
+				text-align: center;
+				padding-top: 200px;
+				opacity: 0.6;
+    			filter: alpha(opacity=60);
+			}
 		</style>
 	</head>
 	<body>
@@ -87,7 +100,28 @@
 				Made by Maarten Forrier
 			</div>
 		</div>
-		<!--<span id="info"></span>-->
+		<div class="info" id="start">
+			<h1>Welcome to Disconnected!</h1>
+			<p>Shoot enemies and bring as many batteries to the helipad as possible.</p>
+			<p>Click to start.</p>
+			<!--<h2>Controls</h2>
+			<ul>
+				<li>LEFT MOUSE CLICK: Shoot bullet</li>
+				<li>RIGHT MOUSE CLICK: Place trap for enemy</li>
+				<li>Z: Move up</li>
+				<li>S: Move down</li>
+				<li>Q: Move left</li>
+				<li>D: Move right</li>
+				<li>SPACE: Drop item</li>
+			</ul>-->
+		</div>
+		<div class="info" id="gameOver">
+			<h1>Game Over!</h1>
+			<p>You have no health left. Thank you for playing. :)</p>
+			<p>Click to restart.</p>
+		</div>
+
+
 		<script type="text/javascript" src="JS/Map.js"></script>
 		<script type="text/javascript" src="JS/Entity.js"></script>
 		<script type="text/javascript" src="JS/Server.js"></script>

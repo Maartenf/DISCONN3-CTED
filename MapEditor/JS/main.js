@@ -31,4 +31,6 @@ canvas.onmousedown = function(e) {
 
 	mouseX = e.offsetX;
 	mouseY = e.offsetY;
+
+	console.log("x=" + mouseX + " y=" + mouseY);
 };

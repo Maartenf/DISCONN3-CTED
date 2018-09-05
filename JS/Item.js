@@ -11,12 +11,7 @@ function Item(x, y, type) {
 		},
 		Batteries: {
 			carry: true,
-			weight: 1,
-			color: "Item"
-		},
-		Trap: {
-			traps: 1,
-			color: "Item"
+			color: "Batteries"
 		}
 	};
 
@@ -47,7 +42,7 @@ Item.prototype.update = function() {
 Item.prototype.draw = function() {
 	ImageLoader.drawIMG(this.color, this.x - this.width / 2, this.y - this.height / 2);
 
-	ctx.fillStyle = "white";
+	/*ctx.fillStyle = "white";
 	ctx.font="14px Arial";
-	ctx.fillText(this.type.toUpperCase(), this.x + this.width / 2 + 10, this.y); 
+	ctx.fillText(this.type.toUpperCase(), this.x + this.width / 2 + 10, this.y);*/
 };

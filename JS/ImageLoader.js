@@ -143,7 +143,7 @@ var ImageLoader = {
 			height: 5,
 			scale: 4	
 		},
-		Enemy: {
+		Batteries: {
 			x: 10,
 			y: 10,
 			width: 5,

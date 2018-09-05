@@ -5,27 +5,18 @@ var Map = {
   	tileinfo: {
   		0: {
   			walk: true,
-  			shoot: false,
   			transp: true,
-  			trap: false,
   			color: "Ground"
   		},
   		1: {
-  			walk: false,
   			shoot: true,
-  			transp: false,
-  			trap: false,
   			color: "ShootWall"
   		},
   		2: {
-			walk: false,
-  			shoot: false,
-  			transp: false,
-  			trap: false,
   			color: "Wall"
   		},
   		3: {
-			walk: true,
+        walk: true,
   			shoot: true,
   			transp: true,
   			trap: true,
@@ -33,93 +24,50 @@ var Map = {
   		},
   		4: {
   			walk: true,
-  			shoot: false,
   			transp: true,
-  			trap: false,
   			color: "Grass"
   		},
   		5: {
-  			walk: false,
-  			shoot: false,
-  			transp: false,
-  			trap: false,
   			color: "WallLeft"
   		},
   		6: {
-  			walk: false,
-  			shoot: false,
-  			transp: false,
-  			trap: false,
   			color: "WallTop"
   		},
   		7: {
-  			walk: false,
-  			shoot: false,
-  			transp: false,
-  			trap: false,
   			color: "WallRight"
   		},
   		8: {
-  			walk: false,
-  			shoot: false,
-  			transp: false,
-  			trap: false,
   			color: "WallBottom"
   		},
   		9: {
-  			walk: false,
-  			shoot: false,
-  			transp: false,
-  			trap: false,
   			color: "WallLeftTop"
   		},
   		10: {
-  			walk: false,
-  			shoot: false,
-  			transp: false,
-  			trap: false,
   			color: "WallRightTop"
   		},
   		11: {
-  			walk: false,
-  			shoot: false,
-  			transp: false,
-  			trap: false,
   			color: "WallLeftBottom"
   		},
   		12: {
-  			walk: false,
-  			shoot: false,
-  			transp: false,
-  			trap: false,
   			color: "WallRightBottom"
   		},
   		13: {
   			walk: true,
-  			shoot: false,
   			transp: true,
-  			trap: false,
   			color: "YellowFlower"
   		},
   		14: {
   			walk: true,
-  			shoot: false,
   			transp: true,
-  			trap: false,
   			color: "RedFlower"
   		},
   		15: {
-  			walk: false,
-  			shoot: false,
   			transp: true,
-  			trap: false,
   			color: "Water"
   		},
   		16: {
   			walk: true,
-  			shoot: false,
   			transp: true,
-  			trap: false,
   			color: "Bridge"
   		}
   	},
