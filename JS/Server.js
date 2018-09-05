@@ -9,8 +9,6 @@ function Server() {
 
 	this.name = "Server";
 
-	this.bulletRadius = this.size / 2;
-
 }
 
 Server.prototype = Object.create(Entity.prototype);
@@ -20,7 +18,7 @@ Server.prototype.update = function() {
 	if (this.isColliding(p)) {
 		var carry = p.carrying == null ? "" : p.carrying.type;
 
-		if (carry == "Batteries") this.energy += 5000;
+		if (carry == "Batteries") this.energy++;
 
 		p.carrying = null;
 	}

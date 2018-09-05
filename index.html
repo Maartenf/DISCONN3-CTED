@@ -12,15 +12,82 @@
 			}
 			#canvas {
 				display: block;
-				margin: 30px auto 10px;
+				margin: 15px auto 10px;
 				cursor: crosshair;
+			}
+			#GUI {
+				margin: auto;
+				width: 1200px;
+			}
+			.stat {
+				width: 12%;
+				display: inline-block;
+				font-size: 12px;
+				font-weight: bold;
+				color: #3cec33;
+				text-transform: uppercase;
+				line-height: 30px;
+				padding: 5px 10px;
+				background-color: #2b2b2b;
+			}
+			.amount {
+				font-size: 20px;
+				float: right;
+				border-left: 2px solid #333;
+				padding-left: 10px;
+				margin-left: 30px;
+				color: white;
+			}
+			#maxHealth {
+				font-size:14px;
+				color: #666;
+				font-weight: bold;
+			}
+			#pause {
+				width: auto;
+				color: #666;
+			}
+			#msg {
+				display: inline-block;
+				float: right;
+				font-size: 14px;
+				text-align: right;
+				line-height: 30px;
 			}
 		</style>
 	</head>
 	<body>
 		<noscript>Please enable javascript.</noscript>
 		<canvas id="canvas" width="1200" height="600">Your browser does not support HTML5 canvas element.</canvas>
-		<span id="info"></span>
+		<div id="GUI">
+			<div class="stat">
+				Health
+				<span class="amount"><span id="health">-</span><span id="maxHealth">/-</span>
+			</div>
+			<div class="stat">
+				Traps
+				<span class="amount" id="traps">-</span>
+			</div>
+			<div class="stat">
+				Bullets
+				<span class="amount" id="bullets">-</span>
+			</div>
+			<div class="stat">
+				Carrying
+				<span class="amount" id="carry">&#x2611;</span>
+			</div>
+			<div class="stat">
+				Batteries
+				<span class="amount" id="batteries">-</span>
+			</div>
+			<div class="stat" id="pause">
+				&#9612;&#9612;
+			</div>
+			<div id="msg">
+				Made by Maarten Forrier
+			</div>
+		</div>
+		<!--<span id="info"></span>-->
 		<script type="text/javascript" src="JS/Map.js"></script>
 		<script type="text/javascript" src="JS/Entity.js"></script>
 		<script type="text/javascript" src="JS/Server.js"></script>
