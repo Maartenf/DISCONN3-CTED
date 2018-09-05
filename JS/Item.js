@@ -48,6 +48,6 @@ Item.prototype.draw = function() {
 	ImageLoader.drawIMG(this.color, this.x - this.width / 2, this.y - this.height / 2);
 
 	ctx.fillStyle = "white";
-	ctx.font="8px Arial";
+	ctx.font="14px Arial";
 	ctx.fillText(this.type.toUpperCase(), this.x + this.width / 2 + 10, this.y); 
 };

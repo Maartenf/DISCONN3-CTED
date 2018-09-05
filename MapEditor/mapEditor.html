@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>MAP EDITOR - DISCONNECTED</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+			html {
+				background-color: black;
+				color: white;
+				font-family: Lucida Console;
+			}
+			#canvas {
+				display: block;
+				margin: 30px auto 10px;
+				cursor: crosshair;
+			}
+			span {
+				display: inline-block;
+				background-color: #666;
+				width: 200px;
+				margin: 5px;
+				padding: 5px;
+			}
+			input {
+				margin: 30px auto 0px;
+				display: block;
+			}
+			textarea {
+				width: 800px;
+				height: 200px;
+				margin: 10px auto 0px;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<noscript>Please enable javascript.</noscript>
+		<canvas id="canvas" width="1200" height="600">Your browser does not support HTML5 canvas element.</canvas>
+		<span id="Ground" onclick="GameEngine.spanClicked(this)">Ground - 0</span>
+		<span id="ShootWall" onclick="GameEngine.spanClicked(this)">Shootwall - 1</span>
+		<span id="Wall" onclick="GameEngine.spanClicked(this)">Wall - 2</span>
+		<span id="Trap" onclick="GameEngine.spanClicked(this)">Trap - 3</span>
+		<span id="Grass" onclick="GameEngine.spanClicked(this)">Grass - 4</span>
+		<span id="WallLeft" onclick="GameEngine.spanClicked(this)">WallLeft - 5</span>
+		<span id="WallTop" onclick="GameEngine.spanClicked(this)">WallTop - 6</span>
+		<span id="WallRight" onclick="GameEngine.spanClicked(this)">WallRight - 7</span>
+		<span id="WallBottom" onclick="GameEngine.spanClicked(this)">WallBottom - 8</span>
+		<span id="WallLeftTop" onclick="GameEngine.spanClicked(this)">WallLeftTop - 9</span>
+		<span id="WallRightTop" onclick="GameEngine.spanClicked(this)">WallRightTop - 10</span>
+		<span id="WallLeftBottom" onclick="GameEngine.spanClicked(this)">WallLeftBottom - 11</span>
+		<span id="WallRightBottom" onclick="GameEngine.spanClicked(this)">WallRightBottom - 12</span>
+		<span id="YellowFlower" onclick="GameEngine.spanClicked(this)">YellowFlower - 13</span>
+		<span id="RedFlower" onclick="GameEngine.spanClicked(this)">RedFlower - 14</span>
+		<span id="Water" onclick="GameEngine.spanClicked(this)">Water - 15</span>
+		<span id="Bridge" onclick="GameEngine.spanClicked(this)">Bridge - 16</span>
+		<input type="button" value="EXPORT" id="export">
+		<textarea></textarea>
+		<script type="text/javascript" src="JS/Map.js"></script>
+		<script type="text/javascript" src="JS/GUI.js"></script>
+		<script type="text/javascript" src="JS/ImageLoader.js"></script>
+		<script type="text/javascript" src="JS/GameEngine.js"></script>
+		<script type="text/javascript" src="JS/main.js"></script>
+	</body>
+</html>
