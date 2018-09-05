@@ -20,7 +20,7 @@
 				width: 1200px;
 			}
 			.stat {
-				width: 12%;
+				width: 12.5%;
 				display: inline-block;
 				font-size: 12px;
 				font-weight: bold;
@@ -43,9 +43,11 @@
 				color: #666;
 				font-weight: bold;
 			}
-			#pause {
-				width: auto;
-				color: #666;
+			#pause, #restart {
+				width: 20px;
+				background-color: #909090;
+				color: white;
+				font-size: 24px;
 			}
 			#msg {
 				display: inline-block;
@@ -63,9 +65,30 @@
 				left: 0px;
 				background-color: black;
 				text-align: center;
-				padding-top: 200px;
-				opacity: 0.6;
-    			filter: alpha(opacity=60);
+				line-height: 30px;
+				padding-top: 100px;
+				opacity: 0.7;
+    			filter: alpha(opacity=70);
+			}
+			.info h1 {
+				border: 2px dashed white;
+				width: 50%;
+				margin: 0px auto 30px;
+				padding: 20px;
+			}
+			.info strong {
+				background-color: #333;
+				padding: 2px;
+			}
+			.start {
+				width: 20%;
+				box-shadow: 3px 3px #666;
+				padding: 10px;
+				margin: auto;
+				background-color: #111;
+				margin-top: 60px;
+				font-weight: bold;
+				text-transform: uppercase;
 			}
 		</style>
 	</head>
@@ -73,6 +96,8 @@
 		<noscript>Please enable javascript.</noscript>
 		<canvas id="canvas" width="1200" height="600">Your browser does not support HTML5 canvas element.</canvas>
 		<div id="GUI">
+			<div class="stat" id="pause">&#10074;&#10074;</div>
+			<div class="stat" id="restart">&#8634;</div>
 			<div class="stat">
 				Health
 				<span class="amount"><span id="health">-</span><span id="maxHealth">/-</span>
@@ -93,17 +118,17 @@
 				Batteries
 				<span class="amount" id="batteries">-</span>
 			</div>
-			<div class="stat" id="pause">
-				&#9612;&#9612;
-			</div>
 			<div id="msg">
 				Made by Maarten Forrier
 			</div>
 		</div>
 		<div class="info" id="start">
 			<h1>Welcome to Disconnected!</h1>
+			<h2>What to do?</h2>
 			<p>Shoot enemies and bring as many batteries to the helipad as possible.</p>
-			<p>Click to start.</p>
+			<h2>How to play?</h2>
+			<p>Use <strong>z, q, d, s</strong> or <strong>arrow keys</strong> to move, <strong>left click</strong> to shoot and <strong>right click</strong> to place traps.<br>You lose a battery when an enemy shoots you. Press <strong>space key</strong> to drop a battery.<br>Walk over an ammobox, medkit or battery to pick it up.</p>
+			<p class="start">Click to start</p>
 			<!--<h2>Controls</h2>
 			<ul>
 				<li>LEFT MOUSE CLICK: Shoot bullet</li>
@@ -118,7 +143,7 @@
 		<div class="info" id="gameOver">
 			<h1>Game Over!</h1>
 			<p>You have no health left. Thank you for playing. :)</p>
-			<p>Click to restart.</p>
+			<p class="start">Click to restart.</p>
 		</div>
 
 

@@ -31,23 +31,23 @@ Player.prototype.update = function() {
 	var yCheck = [this.y - this.height / 2, this.y + this.height / 2];
 
 	//Keyboard and collision detection
-	//key s
-	if (keys[83]) {
+	//key down
+	if (keys[40] || keys[83]) {
 		if (Map.isWalkable(xCheck, this.y + this.height / 2 + this.speed)) this.y += this.speed;
 		else this.y += Map.tilesize - this.y % Map.tilesize - this.height / 2 - 1;
 	}
-	//key z
-	if (keys[90]) {
+	//key up
+	if (keys[38] || keys[90]) {
 		if (Map.isWalkable(xCheck, this.y - this.height / 2 - this.speed)) this.y -= this.speed;
 		else this.y -= this.y % Map.tilesize - this.height / 2;
 	}
-	//key q
-	if (keys[81]) {
+	//key left
+	if (keys[37] || keys[81]) {
 		if (Map.isWalkable(this.x - this.width / 2 - this.speed, yCheck)) this.x -= this.speed;
 		else this.x -= this.x % Map.tilesize - this.width / 2;
 	}
-	//key d
-	if (keys[68]) {
+	//key right
+	if (keys[39] || keys[68]) {
 		if (Map.isWalkable(this.x + this.width / 2 + this.speed, yCheck)) this.x += this.speed;
 		else this.x += Map.tilesize - this.x % Map.tilesize - this.width / 2 - 1;
 	}

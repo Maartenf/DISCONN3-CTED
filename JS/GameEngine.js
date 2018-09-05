@@ -31,13 +31,13 @@ var GameEngine = {
 
 		var player = new Player(width / 2, height / 2);
 
-		var enemy1 = new Enemy(30, 30, "Trooper");
-		var enemy2 = new Enemy(820, 30, "Trooper");
-		var enemy3 = new Enemy(30, 500, "Trooper");
-		var enemy4 = new Enemy(650, 350, "Trooper");
+		var enemy1 = new Enemy(50, 50, "Centry");
+		var enemy2 = new Enemy(320, 360, "Tank");
+		var enemy3 = new Enemy(50, 450, "Trooper");
+		var enemy4 = new Enemy(820, 70, "Trooper");
 
-		var item1 = new Item(500, 200, "Ammo");
-		var item2 = new Item(600, 550, "Health");
+		var item1 = new Item(310, 310, "Ammo");
+		var item2 = new Item(1000, 190, "Health");
 
 		this.entities.push(server, player, enemy1, enemy2, enemy3, enemy4, item1, item2);
 

@@ -37,16 +37,18 @@ var GUI = {
 
 	gameOver: function() {
 		document.getElementById("gameOver").style.display = "block";
+	},
+
+	restart: function() {
+		document.getElementById("start").style.display = "none";
+
+		GameEngine.pause = false;
+		GameEngine.loop();
 	}
 	
 };
 
-document.getElementById("start").onclick = function() {
-	document.getElementById("start").style.display = "none";
-
-	GameEngine.pause = false;
-	GameEngine.loop();
-};
+document.getElementById("start").onclick = GUI.restart;
 
 document.getElementById("gameOver").onclick = function() {
 	document.getElementById("gameOver").style.display = "none";
@@ -63,5 +65,7 @@ document.getElementById("pause").onclick = function() {
 	GameEngine.pause = !paused;
 	GameEngine.loop();
 
-	document.getElementById("msg").innerHTML = paused ? "" : "Game paused.";
+	this.innerHTML = pause ? "&#9658;" : "&#9612;&#9612;";
 };
+
+document.getElementById("restart").onclick = GUI.restart;

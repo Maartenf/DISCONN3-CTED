@@ -13,37 +13,25 @@ function Enemy(x, y, type) {
 			moveDistance: 30,
 			bullet: "Normal"
 		},
-		Zombie: {
-			walk: true,
-			walkToPlayer: false,
-			color: "Player",
-			speed: 0.6,
-			health: 2,
-			shootDistance: 300,
-			ticksToShoot: 0,
-			ticksBetweenShots: 50,
-			moveDistance: 30,
-			bullet: "Heavy"
-		},
 		Centry: {
 			walk: false,
 			color: "Player",
 			health: 5,
-			shootDistance: 400,
+			shootDistance: 800,
 			ticksToShoot: 100,
-			ticksBetweenShots: 50,
-			bullet: "Normal"
+			ticksBetweenShots: 10,
+			bullet: "Sniper"
 		},
 		Tank: {
 			walk: true,
 			walkToPlayer: true,
 			color: "Player",
-			speed: 0.2,
-			health: 10,
-			shootDistance: 80,
+			speed: 2,
+			health: 25,
+			shootDistance: 140,
 			ticksToShoot: 1,
-			ticksBetweenShots: 30,
-			moveDistance: 60,
+			ticksBetweenShots: 100,
+			moveDistance: 120,
 			bullet: "Heavy"
 		}
 	};

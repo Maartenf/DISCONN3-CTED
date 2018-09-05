@@ -5,16 +5,22 @@ function Bullet(x, y, angle, type, target) {
 
 	this.types = {
 		Normal: {
-			damage : 0.5,
+			damage: 0.5,
 			dis: 300,
 			color: "red",
 			size: 3
 		},
 		Heavy: {
-			damage : 1,
+			damage: 2,
 			dis: 200,
 			color: "red",
 			size: 3
+		},
+		Sniper: {
+			damage: 0.25,
+			dis: 800,
+			color: "red",
+			size: 2
 		}
 	};
 
