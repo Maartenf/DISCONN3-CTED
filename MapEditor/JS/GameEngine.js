@@ -6,17 +6,14 @@ var GameEngine = {
 
 	loop: function() {
 		if (mouseLeft) Map.changeTile(mouseX, mouseY, this.currentTile);
-		if (mouseRight) Map.changeTile(mouseX, mouseY, 0);
 
 		Map.draw();
-
-		//Reset mouse clicks at end of loop
-		mouseLeft = false;
-		mouseRight = false;
 
 		GUI.update();
 
 		window.requestAnimationFrame(this.loop.bind(this));
+
+		mouseLeft = false;
 	},
 
 	init: function() {

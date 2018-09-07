@@ -2,16 +2,26 @@ function Item(x, y, type) {
 
 	this.types = {
 		Ammo: {
-			bullets: 5,
+			bullets: 40,
 			color: "Item"
 		},
 		Health: {
-			health: 2,
+			health: 10,
 			color: "Health"
 		},
 		Batteries: {
 			carry: true,
 			color: "Batteries"
+		},
+		Trap: {
+			traps: 2,
+			color: "Item"
+		},
+		Box: {
+			bullets: 30,
+			health: 10,
+			traps: 1,
+			color: "Item"
 		}
 	};
 

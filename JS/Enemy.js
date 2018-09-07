@@ -6,32 +6,32 @@ function Enemy(x, y, type) {
 			walkToPlayer: true,
 			color: "Player",
 			speed: 0.6,
-			health: 2,
+			health: 8,
 			shootDistance: 300,
-			ticksToShoot: 0,
+			ticksToShoot: 50,
 			ticksBetweenShots: 50,
-			moveDistance: 30,
+			moveDistance: 50,
 			bullet: "Normal"
 		},
 		Centry: {
 			walk: false,
 			color: "Player",
-			health: 5,
-			shootDistance: 800,
-			ticksToShoot: 100,
-			ticksBetweenShots: 10,
+			health: 20,
+			shootDistance: 500,
+			ticksToShoot: 50,
+			ticksBetweenShots: 100,
 			bullet: "Sniper"
 		},
 		Tank: {
 			walk: true,
 			walkToPlayer: true,
 			color: "Player",
-			speed: 2,
-			health: 25,
-			shootDistance: 140,
+			speed: 0.3,
+			health: 60,
+			shootDistance: 200,
 			ticksToShoot: 1,
-			ticksBetweenShots: 100,
-			moveDistance: 120,
+			ticksBetweenShots: 50,
+			moveDistance: 60,
 			bullet: "Heavy"
 		}
 	};
@@ -132,28 +132,28 @@ Enemy.prototype.update = function() {
 
 	//down
 	if (this.speed * this.yD > 0) {
-		if (!Map.isWalkable(xCheck, this.y + this.height / 2 + this.speed)) {
+		if (!Map.isWalkable(xCheck, this.y + this.height / 2 + this.speed, this.name)) {
 			this.y += Map.tilesize - this.y % Map.tilesize - this.height / 2 - 1;
 			this.changeMove();
 		}
 	}
 	//up
 	if (this.speed * this.yD < 0) {
-		if (!Map.isWalkable(xCheck, this.y - this.height / 2 - this.speed)) {
+		if (!Map.isWalkable(xCheck, this.y - this.height / 2 - this.speed, this.name)) {
 			this.y -= this.y % Map.tilesize - this.height / 2;
 			this.changeMove();
 		}
 	}
 	//left
 	if (this.speed * this.xD < 0) {
-		if (!Map.isWalkable(this.x - this.width / 2 - this.speed, yCheck)) {
+		if (!Map.isWalkable(this.x - this.width / 2 - this.speed, yCheck, this.name)) {
 			this.x -= this.x % Map.tilesize - this.width / 2;
 			this.changeMove();
 		}
 	}
 	//right
 	if (this.speed * this.xD > 0) {
-		if (!Map.isWalkable(this.x + this.width / 2 + this.speed, yCheck)) {
+		if (!Map.isWalkable(this.x + this.width / 2 + this.speed, yCheck, this.name)) {
 			this.x += Map.tilesize - this.x % Map.tilesize - this.width / 2 - 1;
 			this.changeMove();
 		}
@@ -175,9 +175,7 @@ Enemy.prototype.isPlayerVisible = function() {
 	var pX = player.x;
 	var pY = player.y;
 
-	//=============TEMPORARY=============
 	if (this.x == pX) return true;
-	//=============/TEMPORARY=============
 
 	//construct line equation between enemy and player and get y-coordinate for given x
 	var getYLine = function(xLine, x0, y0) {
@@ -187,7 +185,7 @@ Enemy.prototype.isPlayerVisible = function() {
 	//pixel distance between enemy and player
 	var distance = Math.sqrt(Math.pow(pX - this.x, 2) + Math.pow(pY - this.y, 2));
 	//determine how frequent visibility needs to be checked
-	var step = distance / (Map.tilesize / 4);
+	var step = distance / Map.tilesize;
 
 	var dx = pX - this.x;
 	var xStep = dx / step;
@@ -229,38 +227,40 @@ Enemy.prototype.moveToPlayer = function() {
 	var pX = player.x;
 	var pY = player.y;
 
+	var checkDis = 1;
+
 	var directions = {
 		d1: {
 			xd: 0,
-			yd: -1
+			yd: -checkDis
 		},
 		d2: {
-			xd: 1,
-			yd: -1
+			xd: checkDis,
+			yd: -checkDis
 		},
 		d3: {
-			xd: 1,
+			xd: checkDis,
 			yd: 0
 		},
 		d4: {
-			xd: 1,
-			yd: 1
+			xd: checkDis,
+			yd: checkDis
 		},
 		d5: {
 			xd: 0,
-			yd: 1
+			yd: checkDis
 		},
 		d6: {
-			xd: -1,
-			yd: 1
+			xd: -checkDis,
+			yd: checkDis
 		},
 		d7: {
-			xd: -1,
+			xd: -checkDis,
 			yd: 0
 		},
 		d8: {
-			xd: -1,
-			yd: -1
+			xd: -checkDis,
+			yd: -checkDis
 		}
 	};
 
@@ -275,8 +275,8 @@ Enemy.prototype.moveToPlayer = function() {
 		if (distance < minDis) {
 			minDis = distance;
 
-			this.xD = xd;
-			this.yD = yd;
+			this.xD = xd / checkDis;
+			this.yD = yd / checkDis;
 		}
 	}
 

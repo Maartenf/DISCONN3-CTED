@@ -156,6 +156,13 @@ var ImageLoader = {
 			width: 10,
 			height: 10,
 			scale: 5	
+		},
+		EnemyBlock: {
+			x: 5,
+			y: 5,
+			width: 5,
+			height: 5,
+			scale: 4
 		}
 	},
 

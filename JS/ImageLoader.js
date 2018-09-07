@@ -167,7 +167,6 @@ var ImageLoader = {
 
 	drawIMG: function(name, x, y) {
 		//set image smoothing off
-		ctx.mozImageSmoothingEnabled = false;
 		ctx.msImageSmoothingEnabled = false;
 		ctx.imageSmoothingEnabled = false;
 

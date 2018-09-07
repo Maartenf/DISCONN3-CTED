@@ -10,6 +10,9 @@ var GUI = {
 	player: null,
 	server: null,
 
+	top: 0,
+	left: 0,
+
 	init: function() {
 		this.sHealth = document.getElementById("health");
 		this.sMaxHealth = document.getElementById("maxHealth");
@@ -20,6 +23,9 @@ var GUI = {
 
 		this.player = GameEngine.getEntity("Player");
 		this.server = GameEngine.getEntity("Server");
+
+		this.top = -height / 4;
+		this.left = -width / 4;
 
 		document.getElementById("start").style.display = "block";
 		GameEngine.pause = true;
@@ -33,6 +39,9 @@ var GUI = {
 		this.sBatteries.innerHTML = this.server.energy;
 		//this.sCarry.innerHTML = this.player.carrying == null ? "&#x2611;" : "&#9745;";
 		this.sCarry.innerHTML = this.player.carrying == null ? "&#x2716;" : "&#10004;";
+
+		canvas.style.top = this.top + "px";
+		canvas.style.left = this.left + "px";
 	},
 
 	gameOver: function() {
@@ -49,23 +58,3 @@ var GUI = {
 };
 
 document.getElementById("start").onclick = GUI.restart;
-
-document.getElementById("gameOver").onclick = function() {
-	document.getElementById("gameOver").style.display = "none";
-	
-	GameEngine.pause = false;
-	GameEngine.entities = [];
-
-	GameEngine.init();
-};
-
-document.getElementById("pause").onclick = function() {
-	var paused = GameEngine.pause;
-
-	GameEngine.pause = !paused;
-	GameEngine.loop();
-
-	this.innerHTML = pause ? "&#9658;" : "&#9612;&#9612;";
-};
-
-document.getElementById("restart").onclick = GUI.restart;

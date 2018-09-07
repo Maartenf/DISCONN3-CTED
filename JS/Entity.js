@@ -14,7 +14,7 @@ function Entity(x, y, width, height, color) {
 	//delete entity when false
 	this.alive = true;
 
-	this.bulletRadius = 8;
+	this.bulletRadius = 12;
 }
 
 //override
@@ -45,6 +45,8 @@ Entity.prototype.getDistance = function(entity) {
 };
 
 Entity.prototype.bulletCollision = function() {
+	var collision = false;
+
 	for (var i = 0; i < GameEngine.entities.length; i++) {
 		var e = GameEngine.entities[i];
 
@@ -67,7 +69,9 @@ Entity.prototype.bulletCollision = function() {
 				}
 			}
 
-			return true;
-		} else return false;
+			collision = true;
+		}
 	}
+
+	return collision;
 };

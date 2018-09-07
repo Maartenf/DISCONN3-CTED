@@ -23,11 +23,10 @@ canvas.oncontextmenu = function(e) {
 	e.preventDefault();
 };
 
-canvas.onmousedown = function(e) {
+canvas.onclick = function(e) {
 	var which = e.button;
 
 	if (which == 0) mouseLeft = true;
-	if (which == 2) mouseRight = true;
 
 	mouseX = e.offsetX;
 	mouseY = e.offsetY;
